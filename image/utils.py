@@ -63,7 +63,7 @@ class XImage:
 
 
 if __name__ == "__main__":
-    t = Path(r"./data/长安园区班车线路图-周一_二_四17_40")
+    t = Path(r"./data/xyz)
     tx = Walker(t)
     x = XImage(tx.images[0])
     x.parse()
