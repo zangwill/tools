@@ -106,10 +106,13 @@ class XlsxImages:
         r_id_name_root = r_id_name_tree.documentElement
         r_id_names = OrderedDict()
         r_i_ds = []
-        for _image in r_id_name_root.getElementsByTagName("a:blip"):
-            r_i_ds.append(_image.getAttribute("r:embed"))
-        for idx, _image in enumerate(r_id_name_root.getElementsByTagName("xdr:cNvPr")):
-            r_id_names[_image.getAttribute("name")] = r_i_ds[idx]
+        for cell_image in r_id_name_root.getElementsByTagName("etc:cellImage"):
+            a_blip_list = cell_image.getElementsByTagName("a:blip")
+            xdr_cnvpr_list = cell_image.getElementsByTagName("xdr:cNvPr")
+            if a_blip_list and xdr_cnvpr_list:
+                a_blip = a_blip_list[0]
+                xdr_cNvPr = xdr_cnvpr_list[0]
+                r_id_names[xdr_cNvPr.getAttribute("name")] = a_blip.getAttribute("r:embed")
         return r_id_names
 
     def get_images(self, sheet_index=1, image_field='A', name_field='B'):
